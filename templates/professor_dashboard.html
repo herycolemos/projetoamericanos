@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel do Professor</title>
+    <style>
+        body {
+            background-color: #6fffe7; /* Cor de fundo clara */
+            color: #11015a; /* Cor do texto */
+        }
+    </style>
+</head>
+<body>
+    <h1>Painel do Professor</h1>
+    <a href="/"><button>Voltar</button></a>
+    <a href="/professor_transacoes"><button style="color: #11015a;">Registros de Transações</button></a><br><br>
+    <br>
+    
+    <!-- Formulário para selecionar a turma e visualizar alunos -->
+    <form method="POST" action="{{ url_for('professor_dashboard') }}">
+        <label for="turma">Selecione a Turma:</label><br>
+        <select id="turma" name="turma" required>
+            {% for turma in turmas %}
+                <option value="{{ turma.turma }}">{{ turma.turma }}</option>
+            {% endfor %}
+        </select>
+        <button type="submit">Selecionar</button>
+    </form>
+
+    {% if alunos %}
+        <br>
+        <form method="POST" action="{{ url_for('update_americanos') }}">
+            <label for="tipo">Tipo de Transação:</label><br>
+            <select id="tipo" name="tipo" required>
+                <option value="add">Adicionar</option>
+                <option value="remove">Retirar</option>
+            </select><br><br>
+            <label for="quantidade">Quantidade de Americanos:</label><br>
+            <input type="number" id="quantidade" name="quantidade" min="1" required><br>
+
+            <h2>Alunos da Turma:</h2>
+            <table border="1">
+                <thead>
+                    <tr>
+                        <th style="text-align: center;">V</th>
+                        <th style="text-align: center;">Nome</th>
+                        <th style="text-align: center;">Saldo com o professor</th>
+                        <th style="text-align: center;">Total Distribuído</th>
+                        <th style="text-align: center;">Total de Penalidades</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for aluno, aluno_a, aluno_r in alunos_completos %}
+                    <tr>
+                        <td style="text-align: center;"><input type="checkbox" name="alunos" value="{{ aluno.id }}"></td>
+                        <td>{{ aluno.nome }}</td>
+                        <td style="text-align: center;">{{ aluno[professor_nome] }}</td>
+                        <td style="text-align: center;">{{ aluno_a[professor_nome] }}</td>
+                        <td style="text-align: center;">{{ aluno_r[professor_nome] }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table> 
+            <br>
+            <button type="submit">Finalizar Transação</button>
+        </form>
+    {% endif %}
+</body>
+</html>

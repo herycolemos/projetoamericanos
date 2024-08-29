@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meus Registros de Transações</title>
+    <style>
+        body {
+            background-color: #6fffe7; /* Cor de fundo clara */
+            color: #11015a; /* Cor do texto */
+        }
+    </style>
+</head>
+<body>
+    <h1>Meus Registros de Transações</h1>
+    <a href="/professor_dashboard"><button>Voltar</button></a>
+    <br><br>
+
+    <!-- Formulário para selecionar a turma -->
+    <form method="POST" action="{{ url_for('professor_transacoes') }}">
+        <label for="turma">Selecione a Turma:</label><br>
+        <select id="turma" name="turma" required>
+            <option value="">Todas as Turmas</option>
+            {% for turma in turmas %}
+                <option value="{{ turma.turma }}" {% if turma_selecionada == turma.turma %}selected{% endif %}>
+                    {{ turma.turma }}
+                </option>
+            {% endfor %}
+        </select>
+        <br><br>
+        <button type="submit">Filtrar</button>
+    </form>
+
+    {% if transacoes %}
+        <br>
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>Data e Hora</th>
+                    <th>Aluno</th>
+                    <th>Tipo</th>
+                    <th>Quantidade</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for transacao in transacoes %}
+                <tr>
+                    <td>{{ transacao.data }}</td>
+                    <td>{{ transacao.aluno_nome }}</td>
+                    <td>{{ "Adição" if transacao.tipo == 'add' else "Retirada" }}</td>
+                    <td>{{ transacao.quantidade }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
+</body>
+</html>

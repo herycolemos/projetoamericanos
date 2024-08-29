@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerenciar Professores</title>
+    <style>
+        body {
+            background-color: #6fffe7; /* Cor de fundo clara */
+            color: #11015a; /* Cor do texto */
+        }
+    </style>
+</head>
+<body>
+    <h1>Gerenciar Professores</h1>
+    <form method="POST">
+        <label for="nome">Nome do Professor:</label><br>
+        <input type="text" id="nome" name="nome" required><br><br>
+        <label for="login">Nome de Usuário:</label><br>
+        <input type="text" id="login" name="login" required><br><br>
+        <label for="senha">Senha:</label><br>
+        <input type="password" id="senha" name="senha" required><br><br>
+        <button type="submit">Adicionar Professor</button>
+    </form>
+    <br>
+    <h2>Professores Cadastrados:</h2>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Nome de Usuário</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for professor in professores %}
+            <tr>
+                <td>{{ professor.nome }}</td>
+                <td>{{ professor.login }}</td>
+                <td>
+                    <a href="{{ url_for('edit_professor', professor_id=professor.id) }}">
+                        <button>Editar</button>
+                    </a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>    
+    <br><br>
+    <a href="/admin_dashboard"><button>Voltar</button></a>
+</body>
+</html>

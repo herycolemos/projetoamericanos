@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Saldo dos Alunos por Turma</title>
+    <style>
+        body {
+            background-color: #6fffe7; /* Cor de fundo clara */
+            color: #11015a; /* Cor do texto */
+        }
+    </style>
+</head>
+<body>
+    <h1>Saldo dos Alunos por Turma</h1>
+    <a href="/admin_dashboard"><button>Voltar</button></a>
+    <br><br>
+
+    <!-- Formulário para selecionar a turma -->
+    <form method="POST" action="{{ url_for('admin_saldos') }}">
+        <label for="turma">Selecione a Turma:</label><br>
+        <select id="turma" name="turma" required>
+            {% for turma in turmas %}
+                <option value="{{ turma.turma }}">{{ turma.turma }}</option>
+            {% endfor %}
+        </select>
+        <button type="submit">Selecionar</button>
+    </form>
+
+    {% if saldos %}
+        <br>
+        <h2>Saldos da Turma Selecionada:</h2>
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>Nome do Aluno</th>
+                    <th>Saldo Total</th>
+                    <th>Amanda</th>
+                    <th>Daniella</th>
+                    <th>Elizete</th>
+                    <th>Fátima</th>
+                    <th>Heryco</th>
+                    <th>João Pedro</th>
+                    <th>Luciano</th>
+                    <th>Maria Aparecida</th>
+                    <th>Nayara</th>
+                    <th>Pedro Henrique</th>
+                    <th>Rodrigo</th>
+                    <th>Stael</th>
+                    <th>Tiago</th>
+                    <th>Suely</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for aluno in saldos %}
+                <tr>
+                    <td>{{ aluno.nome }}</td>
+                    <td style="text-align: center;">{{ aluno.saldo }}</td>
+                    <td style="text-align: center;">{{ aluno["Amanda"] }}</td>
+                    <td style="text-align: center;">{{ aluno["Daniella Amaral Pinto"] }}</td>
+                    <td style="text-align: center;">{{ aluno["Elizete"] }}</td>
+                    <td style="text-align: center;">{{ aluno["Fátima"] }}</td>
+                    <td style="text-align: center;">{{ aluno["Heryco Lemos Queirós"] }}</td>
+                    <td style="text-align: center;">{{ aluno["João Pedro Mendes de Siqueira"] }}</td>
+                    <td style="text-align: center;">{{ aluno["Luciano"] }}</td>
+                    <td style="text-align: center;">{{ aluno["Maria Aparecida"] }}</td>
+                    <td style="text-align: center;">{{ aluno["Nayara Cristina de Jesus Ferreira"] }}</td>
+                    <td style="text-align: center;">{{ aluno["Pedro Henrique Pereira Dos Santos"] }}</td>
+                    <td style="text-align: center;">{{ aluno["Rodrigo Prado"] }}</td>
+                    <td style="text-align: center;">{{ aluno["Stael Batista Schenkel de Morais"] }}</td>
+                    <td style="text-align: center;">{{ aluno["Tiago"] }}</td>
+                    <td style="text-align: center;">{{ aluno["Suely"] }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
+</body>
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registros de Transações</title>
+    <style>
+        body {
+            background-color: #6fffe7; /* Cor de fundo clara */
+            color: #11015a; /* Cor do texto */
+        }
+        table, th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+            padding: 10px;
+            text-align: left;
+        }
+        form {
+            margin-bottom: 20px;
+        }
+        select, button {
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Registros de Transações</h1>
+    <a href="/admin_dashboard"><button>Voltar</button></a>
+    <br><br>
+
+    <!-- Formulário para selecionar o professor e a turma -->
+    <form method="POST" action="{{ url_for('admin_transacoes') }}">
+        <label for="professor">Selecione o Professor:</label><br>
+        <select id="professor" name="professor">
+            <option value="all" {% if not professor_selecionado %}selected{% endif %}>Todos os Professores</option>
+            {% for professor in professores %}
+                <option value="{{ professor.id }}" {% if professor_selecionado and professor_selecionado.nome == professor.nome %}selected{% endif %}>
+                    {{ professor.nome }}
+                </option>
+            {% endfor %}
+        </select>
+        <br><br>
+        <label for="turma">Selecione a Turma:</label><br>
+        <select id="turma" name="turma">
+            <option value="" {% if not turma_selecionada %}selected{% endif %}>Todas as Turmas</option>
+            {% for turma in turmas %}
+                <option value="{{ turma.turma }}" {% if turma_selecionada == turma.turma %}selected{% endif %}>
+                    {{ turma.turma }}
+                </option>
+            {% endfor %}
+        </select>
+        <br><br>
+        <button type="submit">Filtrar</button>
+    </form>
+
+    {% if transacoes %}
+        <br>
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>Data e Hora</th>
+                    <th>Aluno</th>
+                    <th>Professor</th>
+                    <th>Tipo</th>
+                    <th>Quantidade</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for transacao in transacoes %}
+                <tr>
+                    <td>{{ transacao.data }}</td>
+                    <td>{{ transacao.aluno_nome }}</td>
+                    <td>{{ transacao.professor_nome }}</td>
+                    <td>{{ "Adição" if transacao.tipo == 'add' else "Retirada" }}</td>
+                    <td>{{ transacao.quantidade }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
+</body>
+</html>

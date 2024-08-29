@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel do Administrador</title>
+    <style>
+        body {
+            background-color: #6fffe7; /* Cor de fundo clara */
+            color: #11015a; /* Cor do texto */
+        }
+    </style>
+</head>
+<body>
+    <h1>Painel do Administrador</h1>
+    <a href="/admin_alunos"><button style="color: #11015a;">Gerenciar Alunos</button></a><br><br>
+    <a href="/admin_professores"><button style="color: #11015a;">Gerenciar Professores</button></a><br><br>
+    <a href="/admin_transacoes"><button style="color: #11015a;">Registros de Transações</button></a><br><br>
+    <a href="{{ url_for('admin_saldos') }}"><button style="color: #11015a;">Ver Saldos dos Alunos</button></a>
+    <br><br>
+    <a href="/"><button>Voltar</button></a>
+</body>
+</html>
