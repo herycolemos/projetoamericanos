@@ -4,7 +4,9 @@ from werkzeug.security import generate_password_hash, check_password_hash
 import sqlite3
 from models import db, Professor
 
-app = Flask(__name__)
+#app = Flask(__name__)
+app = Flask(__name__, template_folder='.')
+
 app.secret_key = 'sua_chave_secreta'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
 app.config['SECRET_KEY'] = 'your_secret_key'
